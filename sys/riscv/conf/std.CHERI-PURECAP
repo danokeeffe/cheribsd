@@ -1,0 +1,5 @@
+include "std.CHERI"
+
+machine		riscv	riscv64c
+
+options 	CHERI_PURECAP_KERNEL
