@@ -135,6 +135,9 @@ sysctl_stats_reset(SYSCTL_HANDLER_ARGS)
 		if (p == oidp || p->oid_arg1 == NULL)
 			continue;
 		counter = (uintptr_t)p->oid_arg1;
+#ifdef __CHERI_PURE_CAPABILITY__
+		counter -= (vaddr_t)DPCPU_START;
+#endif
 		CPU_FOREACH(i) {
 			*(long *)(dpcpu_off[i] + counter) = 0;
 		}
