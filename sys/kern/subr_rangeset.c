@@ -351,7 +351,7 @@ DB_SHOW_COMMAND(rangeset, rangeset_show_fn)
 		return;
 	}
 
-	rs = (struct rangeset *)addr;
+	rs = DB_DATA_PTR(addr, sizeof(*rs));
 	db_printf("rangeset %p\n", rs);
 	for (cursor = 0;; cursor = r->re_start + 1) {
 		r1 = pctrie_lookup_ge(&rs->rs_trie, cursor);

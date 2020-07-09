@@ -1547,7 +1547,7 @@ DB_SHOW_COMMAND(callout, db_show_callout)
 		return;
 	}
 
-	_show_callout((struct callout *)addr);
+	_show_callout(DB_DATA_PTR(addr, sizeof(struct callout)));
 }
 
 static void

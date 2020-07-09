@@ -1111,10 +1111,12 @@ dump_rman(struct rman *rm)
 
 DB_SHOW_COMMAND(rman, db_show_rman)
 {
+	struct rman *rm;
 
 	if (have_addr) {
-		dump_rman_header((struct rman *)addr);
-		dump_rman((struct rman *)addr);
+		rm = DB_DATA_PTR(addr, sizeof(*rm));
+		dump_rman_header(rm);
+		dump_rman(rm);
 	}
 }
 

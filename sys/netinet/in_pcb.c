@@ -3201,7 +3201,7 @@ DB_SHOW_COMMAND(inpcb, db_show_inpcb)
 		db_printf("usage: show inpcb <addr>\n");
 		return;
 	}
-	inp = (struct inpcb *)addr;
+	inp = DB_DATA_PTR(addr, sizeof(*inp));
 
 	db_print_inpcb(inp, "inpcb", 0);
 }

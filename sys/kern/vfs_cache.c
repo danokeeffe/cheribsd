@@ -2722,7 +2722,7 @@ DB_SHOW_COMMAND(vpath, db_show_vpath)
 		return;
 	}
 
-	vp = (struct vnode *)addr;
+	vp = DB_DATA_PTR(addr, sizeof(*vp));
 	db_print_vpath(vp);
 }
 

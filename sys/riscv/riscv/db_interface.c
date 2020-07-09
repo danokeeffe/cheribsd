@@ -124,7 +124,7 @@ db_read_bytes(vm_offset_t addr, size_t size, char *data)
 	ret = setjmp(jb);
 
 	if (ret == 0) {
-		src = (const char *)addr;
+		src = (const char *)DB_DATA_PTR(addr, size);
 		while (size-- > 0)
 			*data++ = *src++;
 	}
@@ -147,7 +147,7 @@ db_write_bytes(vm_offset_t addr, size_t size, char *data)
 	prev_jb = kdb_jmpbuf(jb);
 	ret = setjmp(jb);
 	if (ret == 0) {
-		dst = (char *)addr;
+		dst = (char *)DB_DATA_PTR(addr, size);
 		while (size-- > 0)
 			*dst++ = *data++;
 

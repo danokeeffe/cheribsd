@@ -1431,7 +1431,7 @@ DB_SHOW_COMMAND(multizone_matches, db_show_multizone_matches)
 		db_printf("Usage: show multizone_matches <malloc type/addr>\n");
 		return;
 	}
-	mtp = (void *)addr;
+	mtp = DB_DATA_PTR(addr, sizeof(*mtp));
 	if (mtp->ks_magic != M_MAGIC) {
 		db_printf("Magic %lx does not match expected %x\n",
 		    mtp->ks_magic, M_MAGIC);

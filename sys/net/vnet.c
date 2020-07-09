@@ -735,7 +735,7 @@ DB_SHOW_COMMAND(vnet, db_show_vnet)
 		return;
 	}
 
-	db_vnet_print((struct vnet *)addr);
+	db_vnet_print(DB_DATA_PTR(addr, sizeof(struct vnet)));
 }
 
 static void

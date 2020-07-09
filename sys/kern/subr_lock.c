@@ -194,7 +194,12 @@ DB_SHOW_COMMAND(lock, db_show_lock)
 
 	if (!have_addr)
 		return;
-	lock = (struct lock_object *)addr;
+
+	/*
+	 * XXX: Can't narrow bounds as this is a base class and lc_ddb_show
+	 * can access members in the subclass.
+	 */
+	lock = DB_DATA_PTR_UNBOUND(addr);
 	if (LO_CLASSINDEX(lock) > LOCK_CLASS_MAX) {
 		db_printf("Unknown lock class: %d\n", LO_CLASSINDEX(lock));
 		return;

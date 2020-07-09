@@ -2958,7 +2958,7 @@ DB_SHOW_COMMAND(tcpcb, db_show_tcpcb)
 		db_printf("usage: show tcpcb <addr>\n");
 		return;
 	}
-	tp = (struct tcpcb *)addr;
+	tp = DB_DATA_PTR(addr, sizeof(*tp));
 
 	db_print_tcpcb(tp, "tcpcb", 0);
 }

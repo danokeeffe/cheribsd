@@ -5464,7 +5464,7 @@ DB_SHOW_COMMAND(map, map)
 		db_printf("usage: show map <addr>\n");
 		return;
 	}
-	vm_map_print((vm_map_t)addr);
+	vm_map_print(DB_DATA_PTR(addr, sizeof(struct vm_map)));
 }
 
 DB_SHOW_COMMAND(procvm, procvm)
