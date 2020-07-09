@@ -248,14 +248,6 @@
 #define	CHERI_SHMLBA	(1 << 20)
 #endif
 
-/* XXX-AM: remove cheri-256 support */
-/* #if defined(CHERI_PURECAP_KERNEL) && !defined(CPU_CHERI128) */
-/*
- * Mbufs are larger in the purecap kernel.
- */
-#define MSIZE 512
-/* #endif */
-
 /*
  * Mach derived conversion macros
  */
