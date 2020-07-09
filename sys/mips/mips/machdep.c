@@ -476,8 +476,8 @@ mips_postboot_fixup(void)
 #ifdef DDB
 	Elf_Size *trampoline_data = (Elf_Size*)kernel_kseg0_end;
 	Elf_Size symtabsize = 0;
-	vm_offset_t ksym_start;
-	vm_offset_t ksym_end;
+	vm_ptr_t ksym_start;
+	vm_ptr_t ksym_end;
 
 	if (trampoline_data[0] == SYMTAB_MAGIC) {
 		symtabsize = trampoline_data[1];
