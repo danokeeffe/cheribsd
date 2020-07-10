@@ -582,7 +582,7 @@ ofw_pci_activate_resource(device_t bus, device_t child, int type, int rid,
 		return (ENOMEM);
 
 	rman_set_bushandle(res, handle);
-	rman_set_virtual(res, (void *)handle); /* XXX  for powerpc only ? */
+	rman_set_virtual(res, (void *)(uintptr_t)handle); /* XXX  for powerpc only ? */
 
 	return (rman_activate_resource(res));
 }
