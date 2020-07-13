@@ -97,14 +97,22 @@ typedef struct pv_entry {
  * pv_entries are allocated in chunks per-process.  This avoids the
  * need to track per-pmap assignments.
  */
+#ifdef __CHERI_PURE_CAPABILITY__
+#define	_NPCM	2
+#define	_NPCPV	83
+#else
 #define	_NPCM	3
 #define	_NPCPV	168
+#endif
 struct pv_chunk {
 	struct pmap *		pc_pmap;
 	TAILQ_ENTRY(pv_chunk)	pc_list;
 	uint64_t		pc_map[_NPCM];  /* bitmap; 1 = free */
 	TAILQ_ENTRY(pv_chunk)	pc_lru;
 	struct pv_entry		pc_pventry[_NPCPV];
+#ifdef __CHERI_PURE_CAPABILITY__
+	char			pc_pad[16];
+#endif
 };
 
 typedef struct pmap *pmap_t;
