@@ -51,7 +51,12 @@ unwind_frame(struct unwind_state *frame)
 
 	frame->sp = fp;
 	frame->fp = ((uintptr_t *)fp)[-2];
+#ifdef __CHERI_PURE_CAPABILITY__
+	/* The saved return address is sealed so cannot be modified. */
+	frame->pc = ((uintptr_t *)fp)[-1];
+#else
 	frame->pc = ((uintptr_t *)fp)[-1] - 4;
+#endif
 
 	return (0);
 }
