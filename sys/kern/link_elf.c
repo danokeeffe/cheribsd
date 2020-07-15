@@ -1741,6 +1741,16 @@ link_elf_lookup_set(linker_file_t lf, const char *name,
 	/* and the number of entries */
 	count = stop - start;
 
+#ifdef __CHERI_PURE_CAPABILITY__
+	/*
+	 * XXX: Linker sets have a size of 0 in cap_relocs.  Rederive
+	 * from lf->address and set the bounds to the set length.
+	 */
+	start = cheri_andperm(cheri_setbounds(cheri_setaddress(lf->address,
+	    (vaddr_t)start), count * sizeof(*start)), CHERI_PERMS_KERNEL_DATA);
+	stop = cheri_setaddress(start, (vaddr_t)stop);
+#endif
+	
 	/* and copy out */
 	if (startp != NULL)
 		*startp = start;
