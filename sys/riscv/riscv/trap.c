@@ -188,7 +188,11 @@ cpu_fetch_syscall_args(struct thread *td)
 
 #include "../../kern/subr_syscall.c"
 
-#if __has_feature(capabilities)
+#ifdef __CHERI_PURE_CAPABILITY__
+#define PRINT_REG(name, value)	printf(name " = %#016p\n", (void *)value)
+#define PRINT_REG_N(name, n, array)	\
+	printf(name "[%d] = %#016p\n", n, (void *)(array)[n])
+#elif __has_feature(capabilities)
 #define PRINT_REG(name, value)					\
 	printf(name " = " _CHERI_PRINTF_CAP_FMT "\n",		\
 	    _CHERI_PRINTF_CAP_ARG((void *__capability)value));
